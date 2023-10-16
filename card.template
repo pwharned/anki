@@ -1,0 +1,111 @@
+{{Back}}
+<script>
+
+var userAnswer = [];
+
+var code = (function () {/* {{Back}} */}).toString();
+code = code.slice(16, code.length - 4);
+var c = (function () {/* {{Front}} */}).toString();
+var answer = c.slice(16, c.length - 4)
+//var c = answer.split(" ").sort(() => Math.random() - 0.5);
+var c = answer.split(" ").sort();
+async function reset(){
+userAnswer = [];
+var outer = document.getElementById("autoans")
+outer.innerHTML = userAnswer.join(" ")
+populate();
+}
+
+async function populate(){
+
+
+const doc = document.getElementById('front')
+var newDiv = document.getElementById('newDiv')
+
+
+if(newDiv){
+newDiv.remove();
+}
+newDiv = document.createElement("div");
+newDiv.setAttribute("id","newDiv")
+//newDiv.innerHTML=code
+
+
+c.forEach(
+j => {
+
+if (!document.getElementById(j)){
+
+
+//var newDiv2 = document.createElement("div");
+var button = document.createElement("button");
+button.setAttribute( "onClick", "buttonClick(this.id)");
+button.setAttribute("id", j);
+button.innerHTML=j;
+
+//newDiv2.appendChild(button);
+//newDiv.appendChild(newDiv2);
+newDiv.appendChild(button)
+}
+}
+)
+
+doc.appendChild(newDiv)
+
+}
+
+function flipToBack() {
+	if (typeof pycmd !== "undefined") {
+		pycmd("ans")
+	} else if (typeof study !== "undefined") {
+		study.drawAnswer()
+	} else if (typeof AnkiDroidJS !== "undefined") {
+		showAnswer()
+	} else if (window.anki && window.sendMessage2) {
+		window.sendMessage2("ankitap", "midCenter")
+	}
+}
+
+function buttonClick(id){
+var button = document.getElementById(id)
+
+var text = button.innerHTML
+userAnswer.push(text)
+var outer = document.getElementById("autoans")
+outer.innerHTML = userAnswer.join(" ")
+button.remove();
+if (userAnswer.join(" ")===answer  ){
+alert(answer);
+
+flipToBack();
+}
+if (userAnswer.join(" ")!==answer  ){
+
+if(userAnswer.length>=answer.split(" ").length){
+userAnswer = [];
+outer.innerHTML = "";
+alert(answer);
+populate();
+}
+
+}
+
+}
+		function randomInt(max) {
+			return Math.floor(Math.random() * max);
+		}		
+
+
+</script>
+<div id="outer"> 
+<div id="autoans" class="card"></div>
+<div id="front" class="card"> <img src onerror='populate()'>
+</div>
+<div>
+
+</div>
+<button type="button" onclick='reset()'>Reset</button>
+
+</div>
+
+{{tts tr_TR voices=AwesomeTTS:Front}}
