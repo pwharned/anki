@@ -1,0 +1,23 @@
+<script>
+var code = (function () {/* {{Back}} */}).toString();
+code = code.slice(16, code.length - 4);
+
+
+function flipToBack() {
+	if (typeof pycmd !== "undefined") {
+		pycmd("ease4")
+	} else if (typeof study !== "undefined") {
+		study.drawAnswer()
+	} else if (typeof AnkiDroidJS !== "undefined") {
+		showAnswer()
+	} else if (window.anki && window.sendMessage2) {
+		window.sendMessage2("ankitap", "midCenter")
+	}
+}
+
+
+
+</script>
+
+<div id="front" class="card"> <img src onerror='flipToBack()'>
+</div>
