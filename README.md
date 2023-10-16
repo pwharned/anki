@@ -22,3 +22,10 @@ The way I currently use this is by using the small python script to extract news
 Overall I am finding this to be infinitely more engaging and useful than traditional flashcards, where the word is presented out of context making it much more difficult to remember. Morever my listening skills in the target language increase as I learn new vocab naturally by seeing them presented in a context.
 
 
+# Setup
+
+1. Install Anki TTS
+2. Create a new note type using the provided templates `card.template` (front side) and `card-back.template`. Change the TTS tags to be the appropriate target language.
+3. Add flashcards!
+
+   Optionally, the script in `main.py` when provided the url of a news article as well as html element and class selectors can extract the text of a news article, translate it using the `trans` (`brew install translator-shell`) command and build a pipe delimited file that can be imported into Anki
